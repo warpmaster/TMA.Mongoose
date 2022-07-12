@@ -6,9 +6,8 @@ global.util = require('./config/util');
 const api = require('./routes');
 const app = express();
 
-
 const mongoose = require('mongoose');
-const dev_db_url = 'mongodb://localhost/tc-mongo-homework';
+const dev_db_url = 'mongodb+srv://am01:qwerty01@cluster0.wuyh5gw.mongodb.net/mongoose-homework';
 const mongoDB = process.env.MONGODB_URI || dev_db_url;
 
 const dbOptions = { useUnifiedTopology: true, useNewUrlParser: true};
@@ -17,7 +16,7 @@ mongoose.Promise = global.Promise;
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
-
+mongoose.set('debug', true);
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
@@ -28,5 +27,5 @@ require('./config/error-handler')(app)
 const port = 4040;
 
 app.listen(port, () => {
-    console.log('Server is up and running on port numner ' + port);
+    console.log('Server is up and running on port number ' + port);
 });
